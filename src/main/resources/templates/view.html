@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+
+	<!-- ページタイトルの反映場所 -->
+	<title>マップ</title>
+
+	<!-- 共通の CSS 読込	-->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+	<link rel="stylesheet" th:href="@{/css/common.css}">
+
+	<!-- 個別の JavaScript／CSS をインポート -->
+	<th:block th:replace="~{__${library}__?:_}"></th:block>
+</head>
+<body>
+
+	<!-- ヘッダー -->
+	<div id="header">
+		<div class="flex_space_between">
+		</div>
+	</div>
+
+	<!-- メインコンテンツの埋め込み場所 -->
+	<div id="main" th:insert="~{__${main}__}"></div>
+
+	<!-- フッター -->
+	<div id="footer">
+		<hr>
+		<a th:href="@{${req} + '/'}">
+			<img src="/image/logo.png" title="ロゴ"  class="padding_s">
+		</a>
+	</div>
+	<script type="text/javascript" th:src="@{/js/common.js}"></script>
+</body>
+</html>

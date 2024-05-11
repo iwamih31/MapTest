@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<!-- library フラグメントの定義（JavaScript／CSS） -->
+	<th:block th:fragment="library">
+		<link rel="stylesheet" th:href="@{/css/main.css}">
+	</th:block>
+
+	<!-- main フラグメントの定義（メインコンテンツ） -->
+	<div th:fragment="main">
+		<!-- 本体部分 -->
+		<div class="map">
+			<th:block th:each="row : ${map_Image}">
+				<div class="map_row">
+					<th:block th:each="image_Name : ${row}">
+						<img class="map_piece" th:src="@{'/image_map/' + ${image_Name} + '.png'}">
+					</th:block>
+				</div>
+			</th:block>
+		</div>
+		<br>
+		<a th:href="@{/main}">メインページへ</a>
+	</div>
+
+</html>
