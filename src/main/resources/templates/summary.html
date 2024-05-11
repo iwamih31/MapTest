@@ -9,7 +9,7 @@
 	<!-- main フラグメントの定義（メインコンテンツ） -->
 	<div th:fragment="main">
 		<!-- 本体部分 -->
-		<div class="map">
+		<div class="map" onmousedown="map_Click()" onmousemove="map_Move()">
 			<th:block th:each="row : ${map_Image}">
 				<div class="map_row">
 					<th:block th:each="image_Name : ${row}">
