@@ -266,8 +266,7 @@ nav button,
 	padding: 0.2em;
 }
 
-.map
-{
+#map {
 	width: max-content;
 	margin: auto;
 }

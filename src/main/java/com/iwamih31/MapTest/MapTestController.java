@@ -91,7 +91,7 @@ public class MapTestController {
 			@RequestParam("y")int y,
 			@ModelAttribute("map_Image") String[][] map_Image,
 			Model model) {
-		add_View_Data_(model, "summary");
+		add_View_Data_(model, "map");
 		model.addAttribute("map_Image", map_Image);
 		model.addAttribute("x", x);
 		model.addAttribute("y", y);

@@ -2,13 +2,20 @@
  *
  */
 
+const map = document.querySelector("#map");
+let map_rows = document.querySelectorAll(".map_row");
 const tiles = document.images;
-let mouse_X;
-let mouse_Y;
+
+const repaint = async () => {
+    for (let i = 0; i < 2; i++) {
+        await new Promise(resolve => requestAnimationFrame(resolve));
+    }
+};
+
 
 const map_Click = () => {
-  alert("X = " + mouse_X + " Y = " + mouse_Y);
-  alert(tiles.length);
+
+
 };
 
 const map_Move = () => {
@@ -20,25 +27,41 @@ const map_Move = () => {
   // });
 };
 
-window.onload = () => {
-	document.addEventListener("mousemove", (e)  => {
-		console.log(`Mouse position: X = ${e.clientX}, Y = ${e.clientY}`);
+window.addEventListener("load", (e) => {
+	let mouse_X;
+	let mouse_Y;
+
+	map.addEventListener("click", (e) => {
+		mouse_X = e.clientX;
+		mouse_Y = e.clientY;
+	    alert(`X = ${mouse_X} Y = ${mouse_Y}`);
+	    alert(tiles.length);
+	    alert(map_rows.length);
+	});
+
+	map.addEventListener("pointermove", (e)  => {
+	    console.log(`Mouse position: X = ${e.clientX}, Y = ${e.clientY}`);
+	    map_rows = document.querySelectorAll(".map_row");
 		if (mouse_Y > e.clientY) {
-		    console.log("上");
+		  console.log("上");
+			map.appendChild(map_rows[0]);
 		}
 		if (mouse_Y < e.clientY) {
-		    console.log("下");
+		  console.log("下");
+			map.insertBefore(map_rows[map_rows.length - 1], map_rows[0]);
 		}
 		if (mouse_X > e.clientX) {
-		    console.log("左");
+		  console.log("左");
 		}
 		if (mouse_X < e.clientX) {
-		    console.log("右");
+		  console.log("右");
 		};
 		mouse_X = e.clientX;
 		mouse_Y = e.clientY;
+
+		// repaint(); // 画面を再描画して待つ
 	});
-};
+});
 
 
 window.addEventListener("keydown", (e) => {
