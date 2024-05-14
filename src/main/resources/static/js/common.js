@@ -28,17 +28,30 @@ window.addEventListener("load", (e) => {
 	let move = "";
 	let mouse_X = e.clientX;;
 	let mouse_Y = e.clientY;
+
+	const map_Left = () => {
+		map_rows.forEach(map_row => {
+			pieces = map_row.querySelectorAll(".map_piece");
+			map_row.appendChild(pieces[0]);
+		});
+	}
+	const map_right = () => {
+		map_rows.forEach(map_row => {
+			pieces = map_row.querySelectorAll(".map_piece");
+			map_row.insertBefore(pieces[pieces.length - 1], pieces[0]);
+		});
+	}
 	
 	const action = (move) => {
 		map_rows = document.querySelectorAll(".map_row");
 		if (move === "上") map.appendChild(map_rows[0]);
 		if (move === "下") map.insertBefore(map_rows[map_rows.length - 1], map_rows[0]);
-		if (move === "左") ;
-		if (move === "右") ;
+		if (move === "左") map_Left();
+		if (move === "右") map_right();
 	};
 
 	const stop = () => {
-		alert("イベント");
+		alert("stop イベント発動");
 		move = "";
 		loop();
 	};
@@ -48,8 +61,8 @@ window.addEventListener("load", (e) => {
 		mouse_X = e.clientX;
 		mouse_Y = e.clientY;
 		alert(`X = ${mouse_X} Y = ${mouse_Y}`);
-		alert(tiles.length);
-		alert(map_rows.length);
+		alert("総タイル数 = " + tiles.length);
+		alert("行の列数 = " + map_rows.length);
 		stop();
 	});
 
