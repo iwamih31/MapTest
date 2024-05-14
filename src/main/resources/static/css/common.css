@@ -283,3 +283,9 @@ nav button,
 	padding: 0;
 	margin: 0;
 }
+
+#controller {
+	width: max-content;
+	margin: auto;
+	text-align: center;
+}

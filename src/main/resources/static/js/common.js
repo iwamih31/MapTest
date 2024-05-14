@@ -24,7 +24,7 @@ window.addEventListener("load", (e) => {
 	const map = document.querySelector("#map");
 	let map_rows = document.querySelectorAll(".map_row");
 	let tiles = document.images;
-	let clicked = false;
+	// let clicked = false;
 	let move = "";
 	let mouse_X = e.clientX;;
 	let mouse_Y = e.clientY;
@@ -48,31 +48,38 @@ window.addEventListener("load", (e) => {
 		if (move === "下") map.insertBefore(map_rows[map_rows.length - 1], map_rows[0]);
 		if (move === "左") map_Left();
 		if (move === "右") map_right();
+		if (move === "中") ;
 	};
 
 	const stop = () => {
 		alert("stop イベント発動");
-		move = "";
+	};
+
+	const loop_Start = () => {
+		mouse_X = e.clientX;
+		mouse_Y = e.clientY;
+		// move = "";
 		loop();
 	};
 
-
 	map.addEventListener("click", (e) => {
+		move = "中";
 		mouse_X = e.clientX;
 		mouse_Y = e.clientY;
 		alert(`X = ${mouse_X} Y = ${mouse_Y}`);
 		alert("総タイル数 = " + tiles.length);
 		alert("行の列数 = " + map_rows.length);
 		stop();
+		setTimeout(() => {
+			loop_Start
+		}, 3000);
 	});
 
 	const loop = setInterval(() => {
 
-
 		if (move === "") {
 			map.addEventListener("pointermove", (e) => {
 				console.log(`Mouse position: X = ${e.clientX}, Y = ${e.clientY}`);
-				// map_rows = document.querySelectorAll(".map_row");
 				if (mouse_Y > e.clientY) {
 					move = "上";
 					console.log(move);
@@ -116,11 +123,10 @@ window.addEventListener("load", (e) => {
 
 		action(move);
 
-		if (clicked === true) {
-			clearInterval(loop);
-			clicked === false;
-
-		}
+		// if (clicked === true) {
+		// 	clearInterval(loop);
+		// 	clicked === false;
+		// }
 	}, 1000);
 
 	if (move === ""){
