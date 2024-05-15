@@ -66,7 +66,7 @@ public class MapTestController {
 		int y = map_X_Y[2];
 //		Array map_Image = new Array();
 //		map_Image.string_2 = service.map_Image(map_Number, x, y);
-		String[][] map_Image = service.view_Map_Image(map_Number, x, y);
+		String[][] map_Image = service.map_Image(map_Number, x, y);
 		redirectAttributes.addFlashAttribute("map_Image", map_Image);
 		redirectAttributes.addAttribute("x", x);
 		redirectAttributes.addAttribute("y", y);

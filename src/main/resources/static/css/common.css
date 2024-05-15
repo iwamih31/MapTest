@@ -289,3 +289,7 @@ nav button,
 	margin: auto;
 	text-align: center;
 }
+
+.display_none{
+	display: none;
+}
