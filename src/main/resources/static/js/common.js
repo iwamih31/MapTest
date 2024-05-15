@@ -32,7 +32,7 @@ window.addEventListener("load", (e) => {
 	const right = document.querySelector("#right");
 	let map_rows = document.querySelectorAll(".map_row");
 	let tiles = document.images;
-	// let clicked = false;
+	let clicked = false;
 	let mode = "";
 	let mouse_X = e.clientX;;
 	let mouse_Y = e.clientY;
@@ -59,19 +59,17 @@ window.addEventListener("load", (e) => {
 		if (mode === "中") ;
 	};
 
-	const stop = () => {
+	const stop = (event_Data) => {
 		alert("stop イベント発動");
+		mouse_X = event_Data.clientX;
+		mouse_Y = event_Data.clientY;
+		alert(`X = ${mouse_X} Y = ${mouse_Y}`);
+		alert("総タイル数 = " + tiles.length);
+		alert("行の列数 = " + map_rows.length);
 	};
 
-	const loop_Start = () => {
-		mouse_X = e.clientX;
-		mouse_Y = e.clientY;
-		// mode = "";
-		loop();
-	};
-
-	const alert_Position = (event_Data) => {
-		alert(`X = ${event_Data.clientX} Y = ${event_Data.clientY}`);
+	const position = (event_Data) => {
+		return `X = ${event_Data.clientX} Y = ${event_Data.clientY}`;
 	}
 
 	const button = (button_Name, event_Data) => {
@@ -99,75 +97,89 @@ window.addEventListener("load", (e) => {
 				break;
 			
 		}
-		alert(button_Name + "ボタンが押されました");
-		alert_Position(event_Data);
+		console.log(button_Name + "ボタンが押されました");
+		console.log(position(event_Data));
+		// alert(button_Name + "ボタンが押されました");
+		// alert_Position(event_Data);
 	}
 
 	const move = (destination) => {
-		mode = destination;
-		console.log("移動先 = " + destination);
+		if (!clicked && destination !== mode) {
+			mode = destination;
+			console.log("移動先 = " + destination);
+			walk();
+		}
 	}
 
-	map.addEventListener("click", (e) => {
-		move("○");
-		mouse_X = e.clientX;
-		mouse_Y = e.clientY;
-		alert(`クリック時の座標 X = ${mouse_X} Y = ${mouse_Y}`);
-		alert("総タイル数 = " + tiles.length);
-		alert("行の列数 = " + map_rows.length);
-		stop();
-		setTimeout(() => {
-			loop_Start
-		}, 3000);
+	center.addEventListener("click", (e) => {
+		if (clicked === false) {
+			clicked = true;
+			mouse_X = e.clientX;
+			mouse_Y = e.clientY;
+			alert(`クリック時の座標 X = ${mouse_X} Y = ${mouse_Y}`);
+			stop(e);
+			move("移動");
+		} else {
+			clicked = false;
+		}
+		// walk();
 	});
 
-	const loop = setInterval(() => {
+	button_A.addEventListener("mouseover", (e) => { button("A", e); });
+	button_B.addEventListener("mouseover", (e) => { button("B", e); });
+	button_C.addEventListener("mouseover", (e) => { button("C", e); });
+	button_D.addEventListener("mouseover", (e) => { button("D", e); });
+	up.addEventListener("mouseover", (e) => { button("上", e); });
+	down.addEventListener("mouseover", (e) => { button("下", e); });
+	left.addEventListener("mouseover", (e) => { button("左", e); });
+	right.addEventListener("mouseover", (e) => { button("右", e); });
+	center.addEventListener("mouseover", (e) => { button("○", e); });
 
-		if (mode === "") {
-			map.addEventListener("pointermove", (e) => {
-				console.log(`Mouse position: X = ${e.clientX}, Y = ${e.clientY}`);
-				if (mouse_Y > e.clientY) move("上");
-				if (mouse_Y < e.clientY) move("下");
-				if (mouse_X > e.clientX) move("左");
-				if (mouse_X < e.clientX) move("右");
-				if (mouse_X == e.clientX) move("○");
-				mouse_X = e.clientX;
-				mouse_Y = e.clientY;
-				// repaint(); // 画面を再描画して待つ
-			});
-		}
-
-		button_A.addEventListener("mouseover", (e) => {button("A", e);}); 
-		button_B.addEventListener("mouseover", (e) => {button("B", e);});
-		button_C.addEventListener("mouseover", (e) => {button("C", e);});
-		button_D.addEventListener("mouseover", (e) => {button("D", e);});
-		up.addEventListener("mouseover", (e) => { button("上", e);});
-		down.addEventListener("mouseover", (e) => { button("下", e);});
-		left.addEventListener("mouseover", (e) => { button("左", e);});
-		right.addEventListener("mouseover", (e) => { button("右", e); });
-		right.addEventListener("mouseover", (e) => { button("○", e); });
-			
-		window.addEventListener("keydown", (e) => {
-			alert(e.key + " キーが押されました");
-			switch (e.key){
-				case "ArrowUp"   : move("上"); break;
-				case "ArrowDown" : move("下"); break;
-				case "ArrowLeft" : move("左"); break;
-				case "ArrowRight": move("右"); break;
-			};
-		});
-
-		action(mode);
-
-		// if (clicked === true) {
-		// 	clearInterval(loop);
-		// 	clicked === false;
-		// }
-	}, 1000);
-
-	if (mode === ""){
-		loop();
+	const walk = () => {
+		let current_Mode = mode;
+		mouse_X = e.clientX;
+		mouse_Y = e.clientY;
+		// setTimeout(() => {
+			const loop = setInterval(() => {
+				action(mode);
+				if (current_Mode !== mode) {
+					clearInterval(loop);
+				}
+			}, 1000);
+		// }, 1000);
 	}
+
+
+
+	map.addEventListener("pointermove", (e) => {
+		if (mode === "移動") {
+			console.log(`Mouse position: X = ${e.clientX}, Y = ${e.clientY}`);
+			if (mouse_Y > e.clientY) move("上");
+			if (mouse_Y < e.clientY) move("下");
+			if (mouse_X > e.clientX) move("左");
+			if (mouse_X < e.clientX) move("右");
+			if (mouse_X == e.clientX) move("○");
+			mouse_X = e.clientX;
+			mouse_Y = e.clientY;
+			// repaint(); // 画面を再描画して待つ
+		}
+	});
+
+
+			
+	window.addEventListener("keydown", (e) => {
+		alert(e.key + " キーが押されました");
+		switch (e.key){
+			case "ArrowUp"   : move("上"); break;
+			case "ArrowDown" : move("下"); break;
+			case "ArrowLeft" : move("左"); break;
+			case "ArrowRight": move("右"); break;
+		};
+	});
+
+	// if (mode === ""){
+	// 	walk();
+	// }
 	
 });
 
