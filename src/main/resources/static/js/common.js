@@ -12,7 +12,7 @@
 // const map_Click = () => {
 // };
 
-// const map_Move = () => {
+// const map_mode = () => {
 //   // alert("X = " + screenX() + "Y = " + screenY())
 //   // document.addEventListener("mousemove", (e) => {
 //   //   console.log(`Mouse position: X = ${e.clientX}, Y = ${e.clientY}`);
@@ -33,7 +33,7 @@ window.addEventListener("load", (e) => {
 	let map_rows = document.querySelectorAll(".map_row");
 	let tiles = document.images;
 	// let clicked = false;
-	let move = "";
+	let mode = "";
 	let mouse_X = e.clientX;;
 	let mouse_Y = e.clientY;
 
@@ -50,13 +50,13 @@ window.addEventListener("load", (e) => {
 		});
 	}
 	
-	const action = (move) => {
+	const action = (mode) => {
 		map_rows = document.querySelectorAll(".map_row");
-		if (move === "上") map.appendChild(map_rows[0]);
-		if (move === "下") map.insertBefore(map_rows[map_rows.length - 1], map_rows[0]);
-		if (move === "左") map_Left();
-		if (move === "右") map_right();
-		if (move === "中") ;
+		if (mode === "上") map.appendChild(map_rows[0]);
+		if (mode === "下") map.insertBefore(map_rows[map_rows.length - 1], map_rows[0]);
+		if (mode === "左") map_Left();
+		if (mode === "右") map_right();
+		if (mode === "中") ;
 	};
 
 	const stop = () => {
@@ -66,7 +66,7 @@ window.addEventListener("load", (e) => {
 	const loop_Start = () => {
 		mouse_X = e.clientX;
 		mouse_Y = e.clientY;
-		// move = "";
+		// mode = "";
 		loop();
 	};
 
@@ -88,7 +88,13 @@ window.addEventListener("load", (e) => {
 			case "D":
 
 				break;
-
+			case "上":
+			case "下":
+			case "左":
+			case "右":
+			case "○":
+				move(button_Name);
+				break;
 			default:
 				break;
 			
@@ -97,11 +103,16 @@ window.addEventListener("load", (e) => {
 		alert_Position(event_Data);
 	}
 
+	const move = (destination) => {
+		mode = destination;
+		console.log("移動先 = " + destination);
+	}
+
 	map.addEventListener("click", (e) => {
-		move = "中";
+		move("○");
 		mouse_X = e.clientX;
 		mouse_Y = e.clientY;
-		alert(`X = ${mouse_X} Y = ${mouse_Y}`);
+		alert(`クリック時の座標 X = ${mouse_X} Y = ${mouse_Y}`);
 		alert("総タイル数 = " + tiles.length);
 		alert("行の列数 = " + map_rows.length);
 		stop();
@@ -112,25 +123,14 @@ window.addEventListener("load", (e) => {
 
 	const loop = setInterval(() => {
 
-		if (move === "") {
+		if (mode === "") {
 			map.addEventListener("pointermove", (e) => {
 				console.log(`Mouse position: X = ${e.clientX}, Y = ${e.clientY}`);
-				if (mouse_Y > e.clientY) {
-					move = "上";
-					console.log(move);
-				}
-				if (mouse_Y < e.clientY) {
-					move = "下";
-					console.log(move);
-				}
-				if (mouse_X > e.clientX) {
-					move = "左";
-					console.log(move);
-				}
-				if (mouse_X < e.clientX) {
-					move = "右";
-					console.log(move);
-				};
+				if (mouse_Y > e.clientY) move("上");
+				if (mouse_Y < e.clientY) move("下");
+				if (mouse_X > e.clientX) move("左");
+				if (mouse_X < e.clientX) move("右");
+				if (mouse_X == e.clientX) move("○");
 				mouse_X = e.clientX;
 				mouse_Y = e.clientY;
 				// repaint(); // 画面を再描画して待つ
@@ -141,31 +141,23 @@ window.addEventListener("load", (e) => {
 		button_B.addEventListener("mouseover", (e) => {button("B", e);});
 		button_C.addEventListener("mouseover", (e) => {button("C", e);});
 		button_D.addEventListener("mouseover", (e) => {button("D", e);});
-		up.addEventListener("mouseover", (e) => {move("上", e);});
-		down.addEventListener("mouseover", (e) => {move("下", e);});
-		left.addEventListener("mouseover", (e) => {move("左", e);});
-		right.addEventListener("mouseover", (e) => {move("右", e);});
+		up.addEventListener("mouseover", (e) => { button("上", e);});
+		down.addEventListener("mouseover", (e) => { button("下", e);});
+		left.addEventListener("mouseover", (e) => { button("左", e);});
+		right.addEventListener("mouseover", (e) => { button("右", e); });
+		right.addEventListener("mouseover", (e) => { button("○", e); });
 			
 		window.addEventListener("keydown", (e) => {
-			const key = e.key;
-			switch(key){
-				case "ArrowUp":
-					move = "上"
-				break;
-				case "ArrowUp":
-					move = "下";
-				break;
-				case "ArrowLeft":
-					move = "左";
-				break;
-				case "ArrowRight":
-					move = "右";
-				break;
+			alert(e.key + " キーが押されました");
+			switch (e.key){
+				case "ArrowUp"   : move("上"); break;
+				case "ArrowDown" : move("下"); break;
+				case "ArrowLeft" : move("左"); break;
+				case "ArrowRight": move("右"); break;
 			};
-			alert(key);
 		});
 
-		action(move);
+		action(mode);
 
 		// if (clicked === true) {
 		// 	clearInterval(loop);
@@ -173,7 +165,7 @@ window.addEventListener("load", (e) => {
 		// }
 	}, 1000);
 
-	if (move === ""){
+	if (mode === ""){
 		loop();
 	}
 	
