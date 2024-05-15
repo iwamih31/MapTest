@@ -22,6 +22,14 @@
 window.addEventListener("load", (e) => {
 
 	const map = document.querySelector("#map");
+	const button_A = document.querySelector("#A");
+	const button_B = document.querySelector("#B");
+	const button_C = document.querySelector("#C");
+	const button_D = document.querySelector("#D");
+	const up = document.querySelector("#up");
+	const down = document.querySelector("#down");
+	const left = document.querySelector("#left");
+	const right = document.querySelector("#right");
 	let map_rows = document.querySelectorAll(".map_row");
 	let tiles = document.images;
 	// let clicked = false;
@@ -62,6 +70,33 @@ window.addEventListener("load", (e) => {
 		loop();
 	};
 
+	const alert_Position = (event_Data) => {
+		alert(`X = ${event_Data.clientX} Y = ${event_Data.clientY}`);
+	}
+
+	const button = (button_Name, event_Data) => {
+		switch (button_Name) {
+			case "A":
+
+				break;
+			case "B":
+
+				break;
+			case "C":
+
+				break;
+			case "D":
+
+				break;
+
+			default:
+				break;
+			
+		}
+		alert(button_Name + "ボタンが押されました");
+		alert_Position(event_Data);
+	}
+
 	map.addEventListener("click", (e) => {
 		move = "中";
 		mouse_X = e.clientX;
@@ -101,25 +136,34 @@ window.addEventListener("load", (e) => {
 				// repaint(); // 画面を再描画して待つ
 			});
 		}
+
+		button_A.addEventListener("mouseover", (e) => {button("A", e);}); 
+		button_B.addEventListener("mouseover", (e) => {button("B", e);});
+		button_C.addEventListener("mouseover", (e) => {button("C", e);});
+		button_D.addEventListener("mouseover", (e) => {button("D", e);});
+		up.addEventListener("mouseover", (e) => {move("上", e);});
+		down.addEventListener("mouseover", (e) => {move("下", e);});
+		left.addEventListener("mouseover", (e) => {move("左", e);});
+		right.addEventListener("mouseover", (e) => {move("右", e);});
 			
-			window.addEventListener("keydown", (e) => {
-				const key = e.key;
-				switch(key){
-					case "ArrowUp":
-						move = "上"
-					break;
-					case "ArrowUp":
-						move = "下";
-					break;
-					case "ArrowLeft":
-						move = "左";
-					break;
-					case "ArrowRight":
-						move = "右";
-					break;
-				};
-				alert(key);
-			});
+		window.addEventListener("keydown", (e) => {
+			const key = e.key;
+			switch(key){
+				case "ArrowUp":
+					move = "上"
+				break;
+				case "ArrowUp":
+					move = "下";
+				break;
+				case "ArrowLeft":
+					move = "左";
+				break;
+				case "ArrowRight":
+					move = "右";
+				break;
+			};
+			alert(key);
+		});
 
 		action(move);
 
