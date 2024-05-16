@@ -9,14 +9,17 @@
 	<!-- main フラグメントの定義（メインコンテンツ） -->
 	<div th:fragment="main">
 		<!-- 本体部分 -->
-		<div id="map">
-			<th:block th:each="row : ${map_Image}">
-				<div class="map_row">
-					<th:block th:each="image_Name : ${row}">
-						<img class="map_piece" th:src="@{'/image_map/' + ${image_Name} + '.png'}">
-					</th:block>
-				</div>
-			</th:block>
+		<div class="relative">
+			<div id="map">
+				<th:block th:each="row : ${map_Image}">
+					<div class="map_row">
+						<th:block th:each="image_Name : ${row}">
+							<img class="map_piece" th:src="@{'/image_map/' + ${image_Name} + '.png'}">
+						</th:block>
+					</div>
+				</th:block>
+			</div>
+			<img class="center_piece" th:src="@{'/image_map/' + ${center_Image} + '.png'}">
 		</div>
 		<table id="controller">
 			<tr>

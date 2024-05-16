@@ -61,15 +61,15 @@ public class MapTestController {
 	public String start(
 			RedirectAttributes redirectAttributes) {
 		int[] map_X_Y = service.piece_Position("フィールドA 城A");
+		String center_Image = service.center_Image;
 		int map_Number = map_X_Y[0];
 		int x = map_X_Y[1];
 		int y = map_X_Y[2];
-//		Array map_Image = new Array();
-//		map_Image.string_2 = service.map_Image(map_Number, x, y);
 		String[][] map_Image = service.map_Image(map_Number, x, y);
 		redirectAttributes.addFlashAttribute("map_Image", map_Image);
-		redirectAttributes.addAttribute("x", x);
-		redirectAttributes.addAttribute("y", y);
+		redirectAttributes.addFlashAttribute("center_Image", center_Image);
+		redirectAttributes.addFlashAttribute("x", x);
+		redirectAttributes.addFlashAttribute("y", y);
 		return redirect("/Map");
 	}
 
@@ -87,9 +87,10 @@ public class MapTestController {
 
 	@GetMapping("/Map")
 	public String map(
-			@RequestParam("x")int x,
-			@RequestParam("y")int y,
 			@ModelAttribute("map_Image") String[][] map_Image,
+			@ModelAttribute("center_Image") String[][] center_Image,
+			@ModelAttribute("x")int x,
+			@ModelAttribute("y")int y,
 			Model model) {
 		add_View_Data_(model, "map");
 		model.addAttribute("map_Image", map_Image);

@@ -18,6 +18,13 @@
 	<!-- ヘッダー -->
 	<div id="header">
 		<div class="flex_space_between">
+			<a th:href="@{${req} + '/'}">
+				<img src="/image/logo.png" title="ロゴ" class="padding_s">
+			</a>
+			マップテスト
+			<a th:href="@{${req} + '/'}">
+				<img id="hero" src="/image_map/勇者.png" title="勇者">
+			</a>
 		</div>
 	</div>
 
@@ -31,6 +38,7 @@
 			<img src="/image/logo.png" title="ロゴ"  class="padding_s">
 		</a>
 	</div>
+	<!-- 共通の javascript 読込 -->
 	<script type="text/javascript" th:src="@{/js/common.js}"></script>
 </body>
 </html>

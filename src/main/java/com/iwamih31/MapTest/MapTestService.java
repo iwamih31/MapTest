@@ -9,6 +9,7 @@ public class MapTestService {
 
 	private int view_X =15;
 	private int view_Y =15;
+  public String center_Image = "勇者";
 
 	public int[][] getOriginalMap(int map_Number) {
 		int[][] fieldA = {
