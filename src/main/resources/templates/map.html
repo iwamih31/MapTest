@@ -7,39 +7,75 @@
 	</th:block>
 
 	<!-- main フラグメントの定義（メインコンテンツ） -->
-	<div th:fragment="main">
+	<div th:fragment="main" class="flex_space_between">
 		<!-- 本体部分 -->
-		<div class="relative">
-			<div id="map">
-				<th:block th:each="row : ${map_Image}">
-					<div class="map_row">
-						<th:block th:each="image_Name : ${row}">
-							<img class="map_piece" th:src="@{'/image_map/' + ${image_Name} + '.png'}">
-						</th:block>
-					</div>
-				</th:block>
-			</div>
-			<img class="center_piece" th:src="@{'/image_map/' + ${center_Image} + '.png'}">
+		<div id="information">
+			　インフォメーション　
 		</div>
-		<table id="controller">
-			<tr>
-				<td><button id="A">Ａ</button></td>
-				<td><button id="up"> ▲ </button></td>
-				<td><button id="B">Ｂ</button></td>
-			</tr>
-			<tr>
-				<td><button id="left">◀</button></td>
-				<td><button id="center">〇</button></td>
-				<td><button id="right">▶</button></td>
-			</tr>
-			<tr>
-				<td><button id="C">Ｃ</button></td>
-				<td><button id="down"> ▼ </button></td>
-				<td><button id="D">Ｄ</button></td>
-			</tr>
-		</table>
-		<br>
-		<a th:href="@{/main}">メインページへ</a>
+		<div id="center_container">
+			<div id="member_status" class="flex_space_between">
+				<div class="member">
+					　メンバー1　
+					<br><br>
+					ステータス
+					<br></div>
+				<div class="member">
+					　メンバー2　
+					<br><br>
+					ステータス
+				</div>
+				<div class="member">
+					　メンバー3　
+					<br><br>
+					ステータス
+				</div>
+				<div class="member">
+					　メンバー4　
+					<br><br>
+					ステータス
+				</div>
+			</div>
+			<div id="center_panel" class="relative">
+				<div id="map">
+					<th:block th:each="row : ${map_Image}">
+						<div class="map_row">
+							<th:block th:each="image_Name : ${row}">
+								<img class="map_piece" th:src="@{'/image_map/' + ${image_Name} + '.png'}">
+							</th:block>
+						</div>
+					</th:block>
+				</div>
+				<img class="center_piece" th:src="@{'/image_map/' + ${center_Image} + '.png'}">
+			</div>
+			<table id="controller">
+				<tr>
+					<td><button id="A">Ａ</button></td>
+					<td><button id="up"> ▲ </button></td>
+					<td><button id="B">Ｂ</button></td>
+				</tr>
+				<tr>
+					<td><button id="left">◀</button></td>
+					<td><button id="center">〇</button></td>
+					<td><button id="right">▶</button></td>
+				</tr>
+				<tr>
+					<td><button id="C">Ｃ</button></td>
+					<td><button id="down"> ▼ </button></td>
+					<td><button id="D">Ｄ</button></td>
+				</tr>
+			</table>
+			<div id="message">
+				<br>
+				　----- メッセージ -----
+				<br>
+				<br>
+			</div>
+			<br>
+			<a th:href="@{/main}">メインページへ</a>
+		</div>
+		<div id="command">
+			　　　コマンド　　　
+		</div>
 	</div>
 
 </html>

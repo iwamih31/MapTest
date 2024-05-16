@@ -3,6 +3,8 @@
 body {
 	position: relative;
 	background-color: black;
+	color: white;
+	font-weight: bold;
 }
 
 #main {
@@ -231,6 +233,10 @@ nav button,
 	width: 100%;
 }
 
+.width_80 {
+	width: 80%;
+}
+
 .table input {
 	width: 100%;
 }
@@ -275,8 +281,6 @@ nav button,
 
 #map {
 	width: max-content;
-	margin: auto;
-	border: solid white medium;
 }
 
 .map_row {
@@ -314,4 +318,20 @@ nav button,
 
 .click_button {
 	background-color: royalblue;
+}
+
+#map,
+#controller,
+#message,
+#information,
+#command,
+.member {
+	border: solid white medium;
+margin-top: 1rem;
+}
+
+#information,
+#center_container,
+#command {
+	width: 33%;
 }
