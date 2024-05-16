@@ -3,22 +3,6 @@
  */
 
 
-// const repaint = async () => {
-//     for (let i = 0; i < 2; i++) {
-//         await new Promise(resolve => requestAnimationFrame(resolve));
-//     }
-// };
-
-// const map_Click = () => {
-// };
-
-// const map_mode = () => {
-//   // alert("X = " + screenX() + "Y = " + screenY())
-//   // document.addEventListener("mousemove", (e) => {
-//   //   console.log(`Mouse position: X = ${e.clientX}, Y = ${e.clientY}`);
-//   // });
-// };
-
 window.addEventListener("load", (e) => {
 
 	const map = document.querySelector("#map");
@@ -41,22 +25,45 @@ window.addEventListener("load", (e) => {
 
 
 	const map_Up = () => {
+		up.classList.add("click_button");
+		down.classList.remove("click_button");
+		left.classList.remove("click_button");
+		right.classList.remove("click_button");
 		map.insertBefore(map_rows[map_rows.length - 1], map_rows[0]);
 	}
 	const map_Down = () => {
+		up.classList.remove("click_button");
+		down.classList.add("click_button");
+		left.classList.remove("click_button");
+		right.classList.remove("click_button");
 		map.appendChild(map_rows[0]);
 	}
 	const map_Left = () => {
+		up.classList.remove("click_button");
+		down.classList.remove("click_button");
+		left.classList.add("click_button");
+		right.classList.remove("click_button");
 		map_rows.forEach(map_row => {
 			pieces = map_row.querySelectorAll(".map_piece");
 			map_row.insertBefore(pieces[pieces.length - 1], pieces[0]);
 		});
 	}
 	const map_right = () => {
+		up.classList.remove("click_button");
+		down.classList.remove("click_button");
+		left.classList.remove("click_button");
+		right.classList.add("click_button");
 		map_rows.forEach(map_row => {
 			pieces = map_row.querySelectorAll(".map_piece");
 			map_row.appendChild(pieces[0]);
 		});
+	}
+
+	const map_stop = () => {
+		up.classList.remove("click_button");
+		down.classList.remove("click_button");
+		left.classList.remove("click_button");
+		right.classList.remove("click_button");
 	}
 	
 	const action = (mode) => {
@@ -65,7 +72,7 @@ window.addEventListener("load", (e) => {
 		if (mode === "下") map_Down();
 		if (mode === "左") map_Left();
 		if (mode === "右") map_right();
-		if (mode === "○") ;
+		if (mode === "○") map_stop();
 	};
 
 	const map_View_Range = (row_Size, column_Size) => {
@@ -126,8 +133,6 @@ window.addEventListener("load", (e) => {
 		}
 		console.log(button_Name + "ボタンが押されました");
 		console.log(position(event_Data));
-		// alert(button_Name + "ボタンが押されました");
-		// alert_Position(event_Data);
 	}
 
 	const move = (destination) => {
