@@ -73,6 +73,22 @@ public class MapTestController {
 		return redirect("/Map");
 	}
 
+	@GetMapping("/Start2")
+	public String start2(
+			RedirectAttributes redirectAttributes) {
+		int[] map_X_Y = service.piece_Position("フィールドA 城A");
+		String center_Image = service.center_Image;
+		int map_Number = map_X_Y[0];
+		int x = map_X_Y[1];
+		int y = map_X_Y[2];
+		String[][] map_Image = service.map_Image(map_Number, x, y);
+		redirectAttributes.addFlashAttribute("map_Image", map_Image);
+		redirectAttributes.addFlashAttribute("center_Image", center_Image);
+		redirectAttributes.addFlashAttribute("x", x);
+		redirectAttributes.addFlashAttribute("y", y);
+		return redirect("/Map2");
+	}
+
 	@PostMapping("/Map")
 	public String map(
 			@RequestParam("map_Image")Array map_Image,
@@ -99,6 +115,19 @@ public class MapTestController {
 		return "view";
 	}
 
+	@GetMapping("/Map2")
+	public String map2(
+			@ModelAttribute("map_Image") String[][] map_Image,
+			@ModelAttribute("center_Image") String[][] center_Image,
+			@ModelAttribute("x") int x,
+			@ModelAttribute("y") int y,
+			Model model) {
+		add_View_Data_(model, "map2");
+		model.addAttribute("map_Image", map_Image);
+		model.addAttribute("x", x);
+		model.addAttribute("y", y);
+		return "view";
+	}
 
 	/** view 表示に必要な属性データをモデルに登録 */
 	private void add_View_Data_(Model model, String template, String title) {
